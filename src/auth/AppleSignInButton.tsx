@@ -26,7 +26,9 @@ type Props = {
 export function AppleSignInButton({onSuccess, onError}: Props) {
   const handlePress = async () => {
     try {
-      const appleCred = await appleAuth.performSignIn({
+      // lib v2+ native API is `performRequest`; fall back to `performSignIn` for older versions
+      const fn = (appleAuth as any).performRequest || appleAuth.performSignIn;
+      const appleCred = await fn({
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });

@@ -4,7 +4,7 @@
  * v1.0 demo：仅验证端到端跑通，不接 Firebase / AI chat / TTS
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,6 +19,8 @@ import {
 import {AppleSignInButton} from './src/auth/AppleSignInButton';
 import {GoogleSignInButton} from './src/auth/GoogleSignInButton';
 import {VoiceInputButton} from './src/voice/VoiceInputButton';
+import appleAuth from '@invertase/react-native-apple-authentication';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 type AuthState = {
   signedIn: boolean;
@@ -27,10 +29,52 @@ type AuthState = {
   email?: string;
 };
 
+// Demo debug flag — set to true to auto-trigger Apple Sign in on mount (2s delay)
+const AUTO_TRIGGER_APPLE = true;
+const AUTO_TRIGGER_GOOGLE = false;
+
 export default function App() {
   const [auth, setAuth] = useState<AuthState>({signedIn: false});
   const [inputText, setInputText] = useState('');
   const [chatHistory, setChatHistory] = useState<Array<{role: 'user' | 'ai'; text: string}>>([]);
+
+  // Demo: auto-trigger Apple Sign in / Google Sign in to verify "can be launched"
+  useEffect(() => {
+    if (AUTO_TRIGGER_APPLE) {
+      const t = setTimeout(async () => {
+        try {
+          // WORKAROUND: this lib v2+ has a bug — JS exposes appleAuth.isSupported only
+          // for Android, while iOS native does provide it. Library's performRequest
+          // internally checks `!appleAuth.isSupported` and throws "not supported".
+          // Workaround: bypass JS wrapper entirely and call native RNAppleAuthModule directly.
+          const {NativeModules} = require('react-native');
+          const RNAppleAuthModule = NativeModules.RNAppleAuthModule;
+
+          // Build request (same shape as appleAuth.performRequest)
+          const appleIdRequest = {
+            requestedOperation: 1, // LOGIN
+            requestedScopes: [1], // EMAIL
+          };
+          const cred = await RNAppleAuthModule.performRequest(appleIdRequest);
+          Alert.alert('Apple Sign in OK', `user=${cred.user.slice(0, 10)}...`);
+        } catch (e: any) {
+          Alert.alert('Apple Sign in ERROR', String(e?.message ?? e));
+        }
+      }, 2000);
+      return () => clearTimeout(t);
+    }
+    if (AUTO_TRIGGER_GOOGLE) {
+      const t = setTimeout(async () => {
+        try {
+          console.log('[demo] auto-trigger Google Sign in');
+          await GoogleSignin.signIn();
+        } catch (e) {
+          console.log('[demo] Google Sign in auto-trigger error:', e);
+        }
+      }, 2000);
+      return () => clearTimeout(t);
+    }
+  }, []);
 
   // 登录成功回调
   const handleAuthSuccess = (provider: 'apple' | 'google', userInfo: {identifier: string; email?: string}) => {
