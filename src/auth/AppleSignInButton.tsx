@@ -1,16 +1,14 @@
 /**
- * Apple Sign in Button · 使用 AppleAuthenticationButton（系统原生控件）
- * - 100% 符合 Apple HIG 4.0 + App Review Guideline 4.0
- * - 点击后调 performSignIn 唤起 iOS 系统原生 Authorization sheet
+ * Apple Sign in Button
+ * - Bypass @invertase/react-native-apple-authentication AppleButton 组件（库 bug：JS 拼接
+ *   字符串 'BLACKSIGN_IN' 与 iOS native 类名 'BlackSignIn' 不匹配导致 view config not found）
+ * - 直接调 performSignIn API（系统原生 Authorization sheet 完全工作）
+ * - 用 RN TouchableOpacity 自定义按钮 UI（视觉模仿 Apple HIG：黑底 + 白字 +  文字）
+ * - 接受 Apple Review Guideline 4.0 拒审风险（demo 阶段权宜；v1.1 可用 expo-apple-authentication 替代）
  */
 
 import React from 'react';
-import {Alert} from 'react-native';
-import {
-  AppleAuthenticationButton,
-  AppleAuthenticationButtonType,
-  AppleAuthenticationButtonStyle,
-} from '@invertase/react-native-apple-authentication';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import appleAuth from '@invertase/react-native-apple-authentication';
 
 export type AppleUserInfo = {
@@ -28,13 +26,11 @@ type Props = {
 export function AppleSignInButton({onSuccess, onError}: Props) {
   const handlePress = async () => {
     try {
-      // 1. 调 Apple 系统原生 Authorization sheet
       const appleCred = await appleAuth.performSignIn({
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
-      // 2. 提取用户信息
       const info: AppleUserInfo = {
         identifier: appleCred.user,
         email: appleCred.email ?? undefined,
@@ -44,12 +40,9 @@ export function AppleSignInButton({onSuccess, onError}: Props) {
         identityToken: appleCred.identityToken ?? undefined,
       };
 
-      // 3. 触发成功回调（demo 简化：不接 Firebase Auth）
       onSuccess(info);
     } catch (err: any) {
-      // 用户取消是正常操作，不算 error
       if (err?.code === appleAuth.Error.CANCELED) {
-        // silent: no Alert
         return;
       }
       onError(err as Error);
@@ -57,11 +50,25 @@ export function AppleSignInButton({onSuccess, onError}: Props) {
   };
 
   return (
-    <AppleAuthenticationButton
-      buttonType={AppleAuthenticationButtonType.SIGN_IN}
-      buttonStyle={AppleAuthenticationButtonStyle.BLACK}
-      cornerRadius={8}
-      onPress={handlePress}
-    />
+    <TouchableOpacity style={styles.button} onPress={handlePress} activeOpacity={0.8}>
+      <View style={styles.content}>
+        <Text style={styles.appleIcon}></Text>
+        <Text style={styles.text}>Sign in with Apple</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#000',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    minHeight: 48,
+    justifyContent: 'center',
+  },
+  content: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8},
+  appleIcon: {fontSize: 18, color: '#fff', fontWeight: '700'},
+  text: {fontSize: 15, color: '#fff', fontWeight: '600'},
+});

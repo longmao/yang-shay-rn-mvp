@@ -23,7 +23,10 @@ target 'YangShayRN' do
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
+    # Demo: disable Fabric (New Arch) to keep @invertase/react-native-apple-authentication
+    # AppleButton native component working — library not yet Fabric-compatible.
+    :fabric_enabled => false
   )
 
   post_install do |installer|
