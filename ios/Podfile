@@ -20,6 +20,13 @@ use_modular_headers!
 target 'YangShayRN' do
   config = use_native_modules!
 
+  # iOS 原生 Google Sign-In SDK（不走 RN wrapper，绕开 codegen）
+  pod 'GoogleSignIn', '~> 7.0'
+
+  # Firebase Auth（包装 Google/Apple 登录结果成 Firebase user）
+  pod 'FirebaseAuth'
+  pod 'FirebaseCore'
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.

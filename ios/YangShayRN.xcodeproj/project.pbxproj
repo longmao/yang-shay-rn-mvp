@@ -7,22 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03F0FBA3B02008C963E4AEE9 /* GoogleService-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 0FB9B4829EE28B2C42CE8394 /* GoogleService-Info.plist */; };
 		0C80B921A6F3F58F76C31292 /* libPods-YangShayRN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-YangShayRN.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		7F860D19ABD8BF015FFC7ACC /* GoogleSignInModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9565476E72FEDD3D13F241 /* GoogleSignInModule.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A68A8FA0351D28F5CE14E745 /* GoogleSignInModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7752AFDEF67541DC53ADF73F /* GoogleSignInModule.m */; };
+		AE352870F722F14F46A3B6A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FB9B4829EE28B2C42CE8394 /* GoogleService-Info.plist */; };
 		C3675E00C8197894F0EF0E35 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0FB9B4829EE28B2C42CE8394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* YangShayRN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangShayRN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = YangShayRN/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = YangShayRN/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = YangShayRN/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-YangShayRN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YangShayRN.debug.xcconfig"; path = "Target Support Files/Pods-YangShayRN/Pods-YangShayRN.debug.xcconfig"; sourceTree = "<group>"; };
+		4D9565476E72FEDD3D13F241 /* GoogleSignInModule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YangShayRN/GoogleSignInModule.swift; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-YangShayRN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YangShayRN.release.xcconfig"; path = "Target Support Files/Pods-YangShayRN/Pods-YangShayRN.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-YangShayRN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YangShayRN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = YangShayRN/AppDelegate.swift; sourceTree = "<group>"; };
+		7752AFDEF67541DC53ADF73F /* GoogleSignInModule.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YangShayRN/GoogleSignInModule.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = YangShayRN/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF8F1EE630136503003F085B /* YangShayRN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = YangShayRN.entitlements; path = YangShayRN/YangShayRN.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -49,6 +56,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				4D9565476E72FEDD3D13F241 /* GoogleSignInModule.swift */,
+				7752AFDEF67541DC53ADF73F /* GoogleSignInModule.m */,
 			);
 			name = YangShayRN;
 			sourceTree = "<group>";
@@ -77,6 +86,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				0FB9B4829EE28B2C42CE8394 /* GoogleService-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -163,6 +173,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C3675E00C8197894F0EF0E35 /* PrivacyInfo.xcprivacy in Resources */,
+				AE352870F722F14F46A3B6A3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,13 +204,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YangShayRN/Pods-YangShayRN-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YangShayRN/Pods-YangShayRN-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -236,13 +243,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YangShayRN/Pods-YangShayRN-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YangShayRN/Pods-YangShayRN-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -257,6 +260,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				7F860D19ABD8BF015FFC7ACC /* GoogleSignInModule.swift in Sources */,
+				A68A8FA0351D28F5CE14E745 /* GoogleSignInModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

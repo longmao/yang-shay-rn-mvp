@@ -1,12 +1,11 @@
 /**
- * Google Sign in Button · RN 自定义按钮（Google 没提供 iOS 原生按钮 SDK）
- * - 严格遵循 Google Brand Guidelines（白底 + Google logo + "Sign in with Google"）
- * - 点击后调 GoogleSignin.signIn() 唤起 iOS Google Sign In sheet
+ * Google Sign in Button · RN 自定义按钮
+ * - 调自写 iOS 原生 native module（GoogleSignInModule.swift → GIDSignIn SDK v7）
+ * - 不走 RN wrapper（绕开 RN 0.86 codegen 问题）
  */
 
 import React from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {StyleSheet, Text, TouchableOpacity, View, NativeModules} from 'react-native';
 
 export type GoogleUserInfo = {
   identifier: string;
@@ -23,26 +22,15 @@ type Props = {
 export function GoogleSignInButton({onSuccess, onError}: Props) {
   const handlePress = async () => {
     try {
-      // 1. 检查 Google Play Services（iOS 上一般无影响，但保留 API 完整性）
-      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-
-      // 2. 唤起 Google Sign In 原生 sheet
-      const userInfo = await GoogleSignin.signIn();
-
-      // 3. 提取用户信息
+      const result = (await NativeModules.GoogleSignInModule.signIn()) as Record<string, string>;
       const info: GoogleUserInfo = {
-        identifier: userInfo.user.id,
-        email: userInfo.user.email,
-        name: userInfo.user.name ?? undefined,
-        idToken: userInfo.idToken ?? undefined,
+        identifier: result.id,
+        email: result.email || undefined,
+        name: result.name || undefined,
+        idToken: result.idToken || undefined,
       };
-
       onSuccess(info);
     } catch (err: any) {
-      // 用户取消是正常操作
-      if (err?.code === 'SIGN_IN_CANCELLED') {
-        return;
-      }
       onError(err as Error);
     }
   };

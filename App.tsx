@@ -20,7 +20,7 @@ import {AppleSignInButton} from './src/auth/AppleSignInButton';
 import {GoogleSignInButton} from './src/auth/GoogleSignInButton';
 import {VoiceInputButton} from './src/voice/VoiceInputButton';
 import appleAuth from '@invertase/react-native-apple-authentication';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {NativeModules} from 'react-native';
 
 type AuthState = {
   signedIn: boolean;
@@ -30,8 +30,8 @@ type AuthState = {
 };
 
 // Demo debug flag — set to true to auto-trigger Apple Sign in on mount (2s delay)
-const AUTO_TRIGGER_APPLE = true;
-const AUTO_TRIGGER_GOOGLE = false;
+const AUTO_TRIGGER_APPLE = false;
+const AUTO_TRIGGER_GOOGLE = true;
 
 export default function App() {
   const [auth, setAuth] = useState<AuthState>({signedIn: false});
@@ -66,10 +66,16 @@ export default function App() {
     if (AUTO_TRIGGER_GOOGLE) {
       const t = setTimeout(async () => {
         try {
-          console.log('[demo] auto-trigger Google Sign in');
-          await GoogleSignin.signIn();
-        } catch (e) {
-          console.log('[demo] Google Sign in auto-trigger error:', e);
+          const r = (await NativeModules.GoogleSignInModule.signInWithFirebase()) as Record<string, string>;
+          Alert.alert(
+            'Google Sign in OK',
+            `uid=${r.uid}\nemail=${r.email}\nname=${r.displayName}\ntoken=${(r.identityToken ?? '').slice(0, 20)}...`,
+          );
+        } catch (e: any) {
+          Alert.alert(
+            'Google Sign in ERROR',
+            `code=${e?.code}\nmsg=${String(e?.message ?? e)}`,
+          );
         }
       }, 2000);
       return () => clearTimeout(t);
